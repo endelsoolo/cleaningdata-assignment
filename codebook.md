@@ -24,8 +24,8 @@ For each record in the dataset it is provided:
 ## Transformations
 
 The following transformation steps were applied on the data:
-1. Merge the training and the test sets to create one data set.
-2. Extract only the measurements on the mean and standard deviation for each measurement.
-3. Replace activity numbers with descriptive activity names
-4. Edit data labels to make them descriptive and human readable.
-5. From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject.
+- Merge the training and the test sets to create one data set.
+- Extract only the measurements on the mean and standard deviation for each measurement.
+- Replace activity numbers with descriptive activity names
+- Edit data labels to make them descriptive and human readable.
+- From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject.
