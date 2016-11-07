@@ -1,6 +1,6 @@
 # cleaningdata-assignment
 
-Getting and Cleaning Data - Homework assignment
+Getting and Cleaning Data - Course project
 
 ## Methodology
 
