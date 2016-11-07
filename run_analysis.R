@@ -101,7 +101,7 @@ remove(len)
 
 # Add subject identifiers to the dataset
 
-data$subject<-subject
+data$subject<-unlist(subject)
 remove(subject)
 
 # Add descriptive activity names to the data set
@@ -113,6 +113,34 @@ remove(Y, activity_labels)
 
 extracted<-data[,grep("mean|std|subject|activity",names(data))]
 
-#library(data.table)
-#DT[,mean(),by=c(subject,activity)]
-#xtabs(Freq ~ Gender + Admit, data=DF)
+# Make names human readable
+
+names(extracted)<-gsub("^t([A-Za-zO]+)-","\\1TimeDomain-",names(extracted))
+names(extracted)<-gsub("^f([A-Za-zO]+)-","\\1FrequencyDomain-",names(extracted))
+names(extracted)<-gsub("BodyAccJerk","BodyJerk",names(extracted))
+names(extracted)<-gsub("BodyAcc","BodyAcceleration",names(extracted))
+names(extracted)<-gsub("GravityAcc","GravitationalAcceleration",names(extracted))
+names(extracted)<-gsub("BodyGyroJerk","BodyRotationJerk",names(extracted))
+names(extracted)<-gsub("BodyGyro","BodyRotation",names(extracted))
+names(extracted)<-gsub("Mag","Magnitude",names(extracted))
+names(extracted)<-gsub("-mean\\(\\)","Mean",names(extracted))
+names(extracted)<-gsub("-std\\(\\)","StandardDeviation",names(extracted))
+names(extracted)<-gsub("-meanFreq\\(\\)","MeanFrequency",names(extracted))
+names(extracted)<-gsub("-X","OnXAxis",names(extracted))
+names(extracted)<-gsub("-Y","OnYAxis",names(extracted))
+names(extracted)<-gsub("-Z","OnZAxis",names(extracted))
+
+# Save tidy data
+
+write.table(extracted, "tidydata.txt", row.names = FALSE)
+
+# Calculate the average values of each variable for each activity and each subject
+
+meandata<-aggregate(extracted[,1:79], list(extracted$subject, extracted$activity), mean)
+names(meandata)[1] <- "Subject"
+names(meandata)[2] <- "Activity"
+
+# Save the averaged data
+
+write.table(meandata, "meandata.txt", row.names = FALSE)
+
